@@ -1,0 +1,1 @@
+This quote generator app sends an asynchronous fatch request to a REST API to get our quotes
