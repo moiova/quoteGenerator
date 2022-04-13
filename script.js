@@ -1,8 +1,8 @@
 const quoteContainer = document.getElementById('quote-container');
 const quote = document.getElementById('quote');
 const author = document.getElementById('author');
-const twitter = document.getElementById('twitter');
-const newQuote = document.getElementById('new-quote');
+const twitterBtn = document.getElementById('twitter');
+const newQuoteBtn = document.getElementById('new-quote');
 
 
 let apiQuotes = [];
@@ -43,5 +43,14 @@ function getOneRandomQuote() {
     }
     
     quote.textContent = fetchedQuote.text;
-    return oneQuote;
 }
+
+// tweet quote
+function tweetQuote() {
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${quote.textContent} - ${author.textContent}`;
+    window.open(twitterUrl, '_blank');
+}
+
+// event listeners
+newQuoteBtn.addEventListener('click', getOneRandomQuote);
+twitterBtn.addEventListener('click', tweetQuote)
