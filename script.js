@@ -92,15 +92,6 @@ function showFavoriteQuotes() {
 
     }    
 
-
-
-    // list all the quote and author pairs and create a HTML div element for each pair
-    /* favQuotesArray.forEach(element => {
-        quoteTextFav.textContent = element.text;
-        authorTextFav.textContent = element.author;
-        
-
-    }); */
 }
 
 tweetBtn.addEventListener('click', tweetQuote);
