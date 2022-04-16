@@ -1,56 +1,51 @@
-const quoteContainer = document.getElementById('quote-container');
-const quote = document.getElementById('quote');
-const author = document.getElementById('author');
-const twitterBtn = document.getElementById('twitter');
+const quoteText = document.getElementById('quote');
+const authorText = document.getElementById('author');
+const tweetBtn = document.getElementById('twitter');
 const newQuoteBtn = document.getElementById('new-quote');
 
+let quotesFromApi = [];
 
-let apiQuotes = [];
-let oneQuote = undefined;
-
-// Get quotes from API using an asynchronous FETCH request
-async function getQuotes() {
+async function getQuotesFromApi() {
     const apiUrl = 'https://type.fit/api/quotes';
-    
     try {
-        const response = await fetch(apiUrl); 
-        apiQuotes = await response.json();
-    } 
+        const response = await fetch(apiUrl);
+        quotesFromApi = await response.json();
+        console.log(quotesFromApi);
+        placeGenerateQuoteOnPage();
+    }
     catch(error) {
         // catch error here!
     }
 }
 
-getQuotes().then(getOneRandomQuote);
+getQuotesFromApi();
 
-function getOneRandomQuote() {
-    // await new Promise((resolve, reject) => setTimeout(resolve, 1500));
-    const fetchedQuote = apiQuotes[Math.floor((Math.random() * (apiQuotes.length-1)) + 0)];
-    
-    if (fetchedQuote.author === null) {
-        author.textContent = 'Unknown';    
+function placeGenerateQuoteOnPage() {
+    const generatedQuote = quotesFromApi[Math.floor(Math.random() * (quotesFromApi.length - 1))];
+
+    if (generatedQuote.author === null) {
+        authorText.textContent = 'Unknown';
     }
     else {
-        author.textContent = fetchedQuote.author;
+        authorText.textContent = generatedQuote.author;
     }
     
     // check quote length and apply css class 'long-quote' for long quotes
-    if (fetchedQuote.text.length > 90) {
-        quote.classList.add('long-quote');
+    if (generatedQuote.text.length > 100) {
+        quoteText.classList.add('long-quote');
+        quoteText.classList.remove('quote-text');
     }
     else {
-        quote.classList.remove('long-quote');
+        quoteText.classList.remove('long-quote');
     }
-    
-    quote.textContent = fetchedQuote.text;
+
+    quoteText.textContent = generatedQuote.text;
 }
 
-// tweet quote
 function tweetQuote() {
     const twitterUrl = `https://twitter.com/intent/tweet?text=${quote.textContent} - ${author.textContent}`;
     window.open(twitterUrl, '_blank');
 }
 
-// event listeners
-newQuoteBtn.addEventListener('click', getOneRandomQuote);
-twitterBtn.addEventListener('click', tweetQuote)
+tweetBtn.addEventListener('click', tweetQuote);
+newQuoteBtn.addEventListener('click', placeGenerateQuoteOnPage);
