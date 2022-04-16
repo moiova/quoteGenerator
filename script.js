@@ -2,15 +2,18 @@ const quoteText = document.getElementById('quote');
 const authorText = document.getElementById('author');
 const tweetBtn = document.getElementById('twitter');
 const newQuoteBtn = document.getElementById('new-quote');
+const quoteTextFav = document.getElementById('quote-fav');
+const authorTextFav = document.getElementById('author-fav');
+const favoriteBtn = document.getElementById('favorite');
 
 let quotesFromApi = [];
+let favQuotesArray = [];
 
 async function getQuotesFromApi() {
     const apiUrl = 'https://type.fit/api/quotes';
     try {
         const response = await fetch(apiUrl);
         quotesFromApi = await response.json();
-        console.log(quotesFromApi);
         placeGenerateQuoteOnPage();
     }
     catch(error) {
@@ -43,9 +46,65 @@ function placeGenerateQuoteOnPage() {
 }
 
 function tweetQuote() {
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${quote.textContent} - ${author.textContent}`;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${quoteText.textContent} - ${authorText.textContent}`;
     window.open(twitterUrl, '_blank');
+}
+
+function showFavoriteQuotes() {
+    // add the quote and author pair to the quotes array
+    let quotePlusAuthor = {};
+    quotePlusAuthor.text = quoteText.textContent;
+    quotePlusAuthor.author = authorText.textContent;
+    
+    // check if quote already in the array
+    if (favQuotesArray.find(item => item.text === quotePlusAuthor.text) == undefined) {
+        favQuotesArray.push(quotePlusAuthor);
+    
+    
+        // create the new div container element
+        const newDivContainer = document.createElement('div');
+        // newDivContainer.innerText = "This is the new div";
+        newDivContainer.classList.add('quote-container-fav');
+        document.body.appendChild(newDivContainer);
+        console.log(newDivContainer);
+
+        // create the new div for the quote
+        const newDivForQuote = document.createElement('div');
+        newDivForQuote.classList.add('quote-text-fav');
+        newDivContainer.appendChild(newDivForQuote);
+
+        // create the span inside the quote div
+        const newSpanForQuote = document.createElement('span');
+        newSpanForQuote.id = 'quote-fav';
+        newSpanForQuote.innerText = quotePlusAuthor.text;
+        newDivForQuote.appendChild(newSpanForQuote);
+
+        // create the new div for the author
+        const newDivForAuthor = document.createElement('div');
+        newDivForAuthor.classList.add('quote-author-fav');
+        newDivContainer.appendChild(newDivForAuthor);
+    
+        // create the span inside the author div
+        const newSpanForAuthor = document.createElement('span');
+        newSpanForAuthor.id = 'author-fav';
+        newSpanForAuthor.innerText = quotePlusAuthor.author;
+        newDivForAuthor.appendChild(newSpanForAuthor);
+
+    }    
+
+
+
+    // list all the quote and author pairs and create a HTML div element for each pair
+    /* favQuotesArray.forEach(element => {
+        quoteTextFav.textContent = element.text;
+        authorTextFav.textContent = element.author;
+        
+
+    }); */
 }
 
 tweetBtn.addEventListener('click', tweetQuote);
 newQuoteBtn.addEventListener('click', placeGenerateQuoteOnPage);
+favoriteBtn.addEventListener('click', showFavoriteQuotes);
+
+
