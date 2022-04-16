@@ -2,8 +2,6 @@ const quoteText = document.getElementById('quote');
 const authorText = document.getElementById('author');
 const tweetBtn = document.getElementById('twitter');
 const newQuoteBtn = document.getElementById('new-quote');
-const quoteTextFav = document.getElementById('quote-fav');
-const authorTextFav = document.getElementById('author-fav');
 const favoriteBtn = document.getElementById('favorite');
 
 let quotesFromApi = [];
