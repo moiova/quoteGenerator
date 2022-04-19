@@ -88,7 +88,10 @@ function showFavoriteQuotes() {
         newSpanForAuthor.innerText = quotePlusAuthor.author;
         newDivForAuthor.appendChild(newSpanForAuthor);
 
-    }    
+    }
+    else {
+        window.alert('You already added this quote as a favourite!');
+    }
 
 }
 
