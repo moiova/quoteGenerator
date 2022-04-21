@@ -4,25 +4,10 @@ const tweetBtn = document.getElementById('twitter');
 const newQuoteBtn = document.getElementById('new-quote');
 const favoriteBtn = document.getElementById('favorite');
 
-let quotesFromApi = [];
 let favQuotesArray = [];
 
-async function getQuotesFromApi() {
-    const apiUrl = 'https://type.fit/api/quotes';
-    try {
-        const response = await fetch(apiUrl);
-        quotesFromApi = await response.json();
-        placeGenerateQuoteOnPage();
-    }
-    catch(error) {
-        // catch error here!
-    }
-}
-
-getQuotesFromApi();
-
 function placeGenerateQuoteOnPage() {
-    const generatedQuote = quotesFromApi[Math.floor(Math.random() * (quotesFromApi.length - 1))];
+    const generatedQuote = localQuotes[Math.floor(Math.random() * (localQuotes.length - 1))];
 
     if (generatedQuote.author === null) {
         authorText.textContent = 'Unknown';
@@ -42,6 +27,8 @@ function placeGenerateQuoteOnPage() {
 
     quoteText.textContent = generatedQuote.text;
 }
+
+placeGenerateQuoteOnPage();
 
 function tweetQuote() {
     const twitterUrl = `https://twitter.com/intent/tweet?text=${quoteText.textContent} - ${authorText.textContent}`;
