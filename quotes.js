@@ -316,15 +316,11 @@ const localQuotes = [
     author: 'Jiddu Krishnamurti'
   },
   {
-    text: "We all want to be famous people, and the moment we want to be something we are no longer free.",
-    author: ' Jiddu Krishnamurti'
-  },
-  {
-    text: "A man who is not afraid is not aggressive, a man who has no sense of fear of any kind is really a free, peaceful man.",
-    author: 'Jiddu Krishnamurti'
-  },
-  {
     text: "Waste is any human activity which absorbs resources but creates no value.",
     author: 'J.P. Womak'
   },
+  {
+    text: "We all want to be famous people, and the moment we want to be something we are no longer free.",
+    author: ' Jiddu Krishnamurti'
+  }
 ]
